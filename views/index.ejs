@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-black text-white p-4 shadow">
+        <nav class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">To-Do List</h1>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main class="container mx-auto mt-10 max-w-2xl">
+        <!-- Add Todo Form -->
+        <form action="/api/v1/todos" method="POST" class="flex flex-col gap-4 bg-white p-6 rounded-lg shadow">
+
+            <!-- Title -->
+            <input type="text" name="title" placeholder="Title"
+                class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-400" required>
+
+            <!-- Description -->
+            <textarea name="description" rows="3" placeholder="Description"
+                class="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-400"></textarea>
+
+            <!-- Submit -->
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition">
+                Add
+            </button>
+        </form>
+
+
+        <!-- Todo List -->
+        <ul class="mt-6 space-y-3">
+            <% if (todos.length===0) { %>
+                <li class="text-center text-gray-500">No todos yet. Add one above 👆</li>
+                <% } %>
+
+                    <% todos.forEach(todo=> { %>
+                        <li class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
+                            <div>
+                                <h2 class="font-semibold text-lg">
+                                    <%= todo.title %>
+                                </h2>
+                                <p class="text-gray-600 text-sm">
+                                    <%= todo.description %>
+                                </p>
+                            </div>
+                            <form action="/api/v1/todos/<%= todo._id %>" method="POST" class="inline">
+                                <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition">
+                                    Delete
+                                </button>
+                            </form>
+                        </li>
+                        <% }) %>
+        </ul>
+    </main>
+</body>
+
+</html>

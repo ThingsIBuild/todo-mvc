@@ -1,0 +1,18 @@
+
+@base_url = http://localhost:3000/api/v1/todos
+
+
+### POST create a todo
+POST {{base_url}}
+Content-Type: application/json
+
+{
+    "title": "New Task",
+    "description": "Task Description"
+}
+
+
+### GET All todos
+
+GET {{base_url}}
+Content-Type: application/json
