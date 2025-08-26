@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
+    <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -37,30 +35,43 @@
             </button>
         </form>
 
-
         <!-- Todo List -->
-        <ul class="mt-6 space-y-3">
-            <% if (todos.length===0) { %>
+        <ul class="mt-6 space-y-4">
+            <% if (todos.length === 0) { %>
                 <li class="text-center text-gray-500">No todos yet. Add one above 👆</li>
-                <% } %>
+            <% } %>
 
-                    <% todos.forEach(todo=> { %>
-                        <li class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
-                            <div>
-                                <h2 class="font-semibold text-lg">
-                                    <%= todo.title %>
-                                </h2>
-                                <p class="text-gray-600 text-sm">
-                                    <%= todo.description %>
-                                </p>
-                            </div>
-                            <form action="/api/v1/todos/<%= todo._id %>" method="POST" class="inline">
+            <% todos.forEach(todo => { %>
+                <li class="bg-white p-4 rounded-lg shadow flex flex-col gap-3">
+                    <!-- Task Info -->
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="font-semibold text-lg"><%= todo.title %></h2>
+                            <p class="text-gray-600 text-sm mt-1"><%= todo.description %></p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-3">
+                            <a href="/api/v1/todos/<%= todo._id %>/edit"
+                                class="text-blue-500 hover:text-blue-700 font-medium transition">
+                                Edit
+                            </a>
+
+                            <form action="/api/v1/todos/<%= todo._id %>/delete" method="POST" class="inline">
                                 <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition">
                                     Delete
                                 </button>
                             </form>
-                        </li>
-                        <% }) %>
+                        </div>
+                    </div>
+
+                    <!-- Dates -->
+                    <div class="flex justify-between text-xs text-gray-500 border-t border-gray-200 pt-2 mt-2">
+                        <p><strong>Created: </strong> <%= new Date(todo.createdAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></p>
+                        <p><strong>Updated: </strong> <%= new Date(todo.updatedAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></p>
+                    </div>
+                </li>
+            <% }) %>
         </ul>
     </main>
 </body>
