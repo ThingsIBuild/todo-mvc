@@ -5,7 +5,6 @@ import Todo from '../models/todo.model.js';
 export const createTodo = async (req, res) => {
     try {
         const { title, description } = req.body;
-        console.log(title, description)
         if (!title) {
             return res.status(400).json({ message: "Title is required" });
         }
@@ -65,3 +64,6 @@ export const deleteTodo = async (req, res) => {
         res.status(500).json({ message: "Error deleting todo", error });
     }
 };
+
+
+

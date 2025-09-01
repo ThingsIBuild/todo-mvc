@@ -1,11 +1,12 @@
 import express from "express"
-import { config } from "dotenv";
 import morgan from "morgan"
 import database_init from "./db/connect.js";
 import todoRoutes from './routes/todo.routes.js';
 import Todo from "./models/todo.model.js";
 
-config();
+
+
+
 
 const app = express();
 
